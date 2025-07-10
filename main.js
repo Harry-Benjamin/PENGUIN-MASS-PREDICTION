@@ -2,10 +2,11 @@ document.getElementById('predict-button').onclick = async function() {
     const culmenLength = parseFloat(document.getElementById('culmen_length_mm').value);
     const culmenDepth = parseFloat(document.getElementById('culmen_depth_mm').value);
     const flipperLength = parseFloat(document.getElementById('flipper_length_mm').value);
-    // Ensure element IDs match the HTML (e.g., 'species' instead of 'Species')
-    const species = document.getElementById('species').value.trim(); // Changed 'Species' to 'species' (common HTML ID naming)
-    const island = document.getElementById('island').value.trim();   // Changed 'Island' to 'island'
-    const sex = document.getElementById('sex').value.trim();         // Changed 'Sex' to 'sex'
+
+    // FIX: Changed IDs to match your HTML's capitalized IDs (Species, Island, Sex)
+    const species = document.getElementById('Species').value.trim();
+    const island = document.getElementById('Island').value.trim();
+    const sex = document.getElementById('Sex').value.trim();
 
     const errorDiv = document.getElementById('error-message');
     const resultDiv = document.getElementById('result');
@@ -24,11 +25,9 @@ document.getElementById('predict-button').onclick = async function() {
         return;
     }
 
-
     predictBtn.disabled = true; // Disable button to prevent multiple clicks
 
     try {
-        // --- FIX 1: Correct API Endpoint URL ---
         const API_ENDPOINT = 'https://penguin-mass-prediction.onrender.com/predict';
 
         const response = await fetch(API_ENDPOINT, {
@@ -40,38 +39,34 @@ document.getElementById('predict-button').onclick = async function() {
                 culmen_length_mm: culmenLength,
                 culmen_depth_mm: culmenDepth,
                 flipper_length_mm: flipperLength,
-                species: species, // Ensure these keys EXACTLY match your Flask app's 'data.get()' calls
+                species: species, // These keys match your Flask app's 'data.get()' calls
                 island: island,
                 sex: sex
             })
         });
 
-        // --- FIX 2: Handle non-OK HTTP responses from the API ---
         if (!response.ok) {
             let errorText = `Server error: ${response.status} ${response.statusText}`;
             try {
-                const errorData = await response.json(); // Try to parse error message from server
+                const errorData = await response.json();
                 if (errorData.error) {
                     errorText = `Prediction failed: ${errorData.error}`;
                 }
             } catch (e) {
-                // If response is not JSON or parsing fails, use generic error message
                 console.error("Failed to parse error response from server:", e);
             }
             errorDiv.textContent = errorText;
-            predictBtn.disabled = false; // Re-enable button on error
-            return; // Stop execution
+            predictBtn.disabled = false;
+            return;
         }
 
         const data = await response.json();
 
-        // --- FIX 3: Access the correct property from the Flask API response ---
-        // Your Flask API returns: `return jsonify({'predicted_mass': round(prediction, 2)})`
         let mass = data.predicted_mass;
 
         if (typeof mass === 'undefined') {
             errorDiv.textContent = "Prediction failed: API response did not contain 'predicted_mass'.";
-            console.error("API Response:", data); // Log the full response for debugging
+            console.error("API Response:", data);
             predictBtn.disabled = false;
             return;
         }
@@ -122,11 +117,9 @@ document.getElementById('predict-button').onclick = async function() {
             `;
         }
     } catch (err) {
-        // This catch block handles network errors or issues with the fetch itself
         errorDiv.textContent = `Prediction failed: ${err.message}. Please check your internet connection or try again.`;
         console.error('Fetch Error:', err);
     } finally {
-        // Ensure button is always re-enabled
         predictBtn.disabled = false;
     }
 };
