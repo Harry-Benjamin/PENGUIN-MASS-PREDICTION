@@ -19,7 +19,7 @@ document.getElementById('predict-button').onclick = async function() {
 
     predictBtn.disabled = true;
     try {
-        const response = await fetch('https://your-backend-url.onrender.com/predict', { // <-- UPDATE THIS URL
+        const response = await fetch('https://penguin-mass-prediction.onrender.com', { // <-- UPDATE THIS URL
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
