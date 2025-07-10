@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Mass Prediction</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dancing penguin.css">
+    <link rel="icon" type="image/png" sizes="192x192" href="penguin favicon.jpg">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <style>
+        .badge-base__link.LI-simple-link {
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <div class="model">
+                <div id="model-container">
+                    <model-viewer src="dancing_penguin.glb" camera-controls disable-zoom background="transparent" style="width:100%;height:100%;" autoplay>
+                        <button class="Hotspot" slot="hotspot-1" data-surface="0 0 9244 9250 9249 0.421 0.394 0.185" data-visibility-attribute="visible">
+                            <div class="HotspotAnnotation">CULMEN</div>
+                        </button>
+                        <button class="Hotspot" slot="hotspot-2" data-surface="0 0 8757 8760 8761 0.170 0.364 0.465" data-visibility-attribute="visible">
+                            <div class="HotspotAnnotation">FLIPPER</div>
+                        </button>
+                        <button class="Hotspot" slot="hotspot-3" data-surface="0 0 5239 5242 5243 0.248 0.111 0.641" data-visibility-attribute="visible">
+                            <div class="HotspotAnnotation">MASS IN g</div>
+                        </button>
+                    </model-viewer>
+                </div>
+            </div>
+            <div class="menu">
+                <h1>
+                    AI TO PREDICT A PENGUIN BODY MASS
+                </h1>
+                <p>
+                    This AI model predicts the body mass of a penguin based on its physical characteristics such as culmen length and depth, flipper length, species, sex and location. 
+                </p>
+                <p>
+                    It is designed to assist researchers and wildlife enthusiasts in weighing penguins without heavy lifting.
+                </p>
+                <div class="input_output">
+                    <label for="culmen_length_mm">Culmen length (mm):</label>
+                    <input type="number" id="culmen_length_mm" step="1" required>
+                    <label for="culmen_depth_mm">Culmen Depth (mm):</label>
+                    <input type="number" id="culmen_depth_mm" step="1" required>
+                    <label for="flipper_length_mm">Flipper Length (mm):</label>
+                    <input type="number" id="flipper_length_mm" step="1" required>
+                    <label for="Species">Species:</label>
+                    <select name="Species" id="Species">
+                        <option value="Adelie">Adelie</option>
+                        <option value="Chinstrap">Chinstrap</option>
+                        <option value="Gentoo">Gentoo</option>
+                    </select>
+                    <label for="Island">Island:</label>
+                    <select name="Island" id="Island">
+                        <option value="Torgersen">Torgersen</option>
+                        <option value="Biscoe">Biscoe</option>
+                        <option value="Dream">Dream</option>
+                    </select>
+                    <label for="Sex">Sex:</label>
+                    <select name="Sex" id="Sex">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="predict-button" id="predict-section">
+                    <button id="predict-button">Predict</button>
+                    <div id="result"></div>
+                    <div id="error-message" class="error"></div> 
+                </div>
+            </div>
+        </div>
+        <div class="developer" id="developer-footer">
+            <h2>About the Developer</h2>
+            <p>This AI model was developed by [Harry Benjamin Kimba], a passionate AI enthusiast and developer.</p>
+            <p>With a background in machine learning and computer vision, [Harry Benjamin Kimba] aims to create innovative solutions for wildlife conservation.</p>
+            <!-- LinkedIn Badge Start -->
+            <div style="margin: 16px 0;">
+                <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+                <div class="badge-base LI-profile-badge"
+                    data-locale="en_US"
+                    data-size="large"
+                    data-theme="light"
+                    data-type="HORIZONTAL"
+                    data-vanity="harry-benjamin-kimba-161684291"
+                    data-version="v1">
+                    <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/harry-benjamin-kimba-161684291?trk=profile-badge">
+                        Harry Benjamin Kimba
+                    </a>
+                </div>
+            </div>
+            <!-- LinkedIn Badge End -->
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
